@@ -120,9 +120,9 @@ app.post("/delete", function(req, res){   //in list.ejs, when the checkbox is ch
 //   res.render("list", {listTitle: "Work List", newListItems: workItems});
 // });
 
-// app.get("/about", function(req, res){
-//   res.render("about");
-// });
+app.get("/about", function(req, res){
+  res.render("about");
+});
 
 app.get("/:customListName", function(req, res){ //dynamic url "/:params"
   const customListName = _.capitalize(req.params.customListName);
@@ -143,6 +143,11 @@ app.get("/:customListName", function(req, res){ //dynamic url "/:params"
 
 //-----------------------------
 
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
+let port = process.env.PORT; //for heroku port
+if (port == null || port == "") {
+  port = 3000;
+}
+
+app.listen(port, function() {
+  console.log("Server has started succesfully");
 });
