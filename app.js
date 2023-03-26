@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const date = require(__dirname + "/date.js");
 const mongoose = require("mongoose");
-const _ = require("Lodash");
+const _ = require("lodash");
 
 const app = express();
 
@@ -14,9 +14,9 @@ app.use(express.static("public"));
 //------------------------------
 
 //connect to database
-mongoose.connect("mongodb+srv://<username>:<password>@cluster0.yic4qd3.mongodb.net/todolistDB");   //atlas database
-                                                                                                   //link to "todolistDB" database on atlas
-                                                                                                  //put in your username and password
+
+mongoose.connect("mongodb+srv://forEveryone:example123@cluster0.yic4qd3.mongodb.net/todolistDB");   //atlas database
+                                                                                                           //link to "todolistDB" database on atlas
 //mongoose.connect("mongodb://localhost:27017/todolistDB"); //local database
 
 const itemsSchema = {
@@ -101,8 +101,9 @@ app.post("/", function(req, res){
 app.post("/delete", function(req, res){   //in list.ejs, when the checkbox is checked, it'll submit a post request to /delete
   const checkedItemId = req.body.checkbox;  //req.body.checkbox is the id of the checked item
   const listName = req.body.listName; //in list.ejs, <input type="hidden"> has name="listName" 
+  const day = date.getDate();
 
-  if(listName === date){
+  if(listName === day){
     Item.findByIdAndRemove(checkedItemId).then(()=>{});
     res.redirect("/");
   } else {
@@ -120,9 +121,9 @@ app.post("/delete", function(req, res){   //in list.ejs, when the checkbox is ch
 //   res.render("list", {listTitle: "Work List", newListItems: workItems});
 // });
 
-// app.get("/about", function(req, res){
-//   res.render("about");
-// });
+app.get("/about", function(req, res){
+  res.render("about");
+});
 
 app.get("/:customListName", function(req, res){ //dynamic url "/:params"
   const customListName = _.capitalize(req.params.customListName);
@@ -143,6 +144,11 @@ app.get("/:customListName", function(req, res){ //dynamic url "/:params"
 
 //-----------------------------
 
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
+let port = process.env.PORT; //for heroku port
+if (port == null || port == "") {
+  port = 3000;
+}
+
+app.listen(port, function() {
+  console.log("Server has started succesfully");
 });
