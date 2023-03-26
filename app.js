@@ -14,7 +14,10 @@ app.use(express.static("public"));
 //------------------------------
 
 //connect to database
-mongoose.connect("mongodb://localhost:27017/todolistDB");
+mongoose.connect("mongodb+srv://nguyendanlinh9122000:test_123@cluster0.yic4qd3.mongodb.net/todolistDB");   //atlas database
+                                                                                                           //link to "todolistDB" database on atlas
+//mongoose.connect("mongodb://localhost:27017/todolistDB"); //local database
+
 const itemsSchema = {
   name: String
 };
@@ -64,12 +67,13 @@ app.post("/", function(req, res){
 
   const itemName = req.body.newItem; //in list.ejs, <input> has name "newItem"
   const listName = req.body.list; //in list.ejs, <button> has name "list"
-  
+  const day = date.getDate();
+
   const item = new Item({
     name: itemName
   })
 
-  if(listName === date){
+  if(listName === day){
     item.save();
     res.redirect("/");
   } else {  //for dynamic url, listName is customeListName
