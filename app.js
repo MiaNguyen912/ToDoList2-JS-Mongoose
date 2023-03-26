@@ -14,7 +14,7 @@ app.use(express.static("public"));
 //------------------------------
 
 //connect to database
-mongoose.connect("mongodb+srv://nguyendanlinh9122000:test_123@cluster0.yic4qd3.mongodb.net/todolistDB");   //atlas database
+mongoose.connect("mongodb+srv://forEveryone:example123@cluster0.yic4qd3.mongodb.net/todolistDB");   //atlas database
                                                                                                            //link to "todolistDB" database on atlas
 //mongoose.connect("mongodb://localhost:27017/todolistDB"); //local database
 
@@ -100,8 +100,9 @@ app.post("/", function(req, res){
 app.post("/delete", function(req, res){   //in list.ejs, when the checkbox is checked, it'll submit a post request to /delete
   const checkedItemId = req.body.checkbox;  //req.body.checkbox is the id of the checked item
   const listName = req.body.listName; //in list.ejs, <input type="hidden"> has name="listName" 
+  const day = date.getDate();
 
-  if(listName === date){
+  if(listName === day){
     Item.findByIdAndRemove(checkedItemId).then(()=>{});
     res.redirect("/");
   } else {
