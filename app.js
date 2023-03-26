@@ -14,8 +14,9 @@ app.use(express.static("public"));
 //------------------------------
 
 //connect to database
-mongoose.connect("mongodb+srv://nguyendanlinh9122000:test_123@cluster0.yic4qd3.mongodb.net/todolistDB");   //atlas database
-                                                                                                           //link to "todolistDB" database on atlas
+mongoose.connect("mongodb+srv://<username>:<password>@cluster0.yic4qd3.mongodb.net/todolistDB");   //atlas database
+                                                                                                   //link to "todolistDB" database on atlas
+                                                                                                  //put in your username and password
 //mongoose.connect("mongodb://localhost:27017/todolistDB"); //local database
 
 const itemsSchema = {
