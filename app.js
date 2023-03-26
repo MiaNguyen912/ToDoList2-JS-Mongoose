@@ -14,6 +14,7 @@ app.use(express.static("public"));
 //------------------------------
 
 //connect to database
+
 mongoose.connect("mongodb+srv://forEveryone:example123@cluster0.yic4qd3.mongodb.net/todolistDB");   //atlas database
                                                                                                            //link to "todolistDB" database on atlas
 //mongoose.connect("mongodb://localhost:27017/todolistDB"); //local database
